@@ -13,13 +13,17 @@ const io = new Server(server, {
     }
 });
 
-const userSocketMap = {
+// store online users
+const userSocketMap = {}
 
+// get users socket id
+function getReceiverSocketId(userId) {
+    return userSocketMap[userId]
 }
 
 io.on("connection", (socket) =>{
     console.log("A user connected", socket.id);
-    const userId = socket.handshake.query.userId
+    const userId = socket.handshake.query.userId;
 
     if(userId)  userSocketMap[userId] = socket.id
 
@@ -34,4 +38,4 @@ io.on("connection", (socket) =>{
     
 })
 
-export {io, app, server}
+export {io, app, server, getReceiverSocketId}
