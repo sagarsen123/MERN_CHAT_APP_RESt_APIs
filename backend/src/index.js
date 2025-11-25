@@ -5,10 +5,10 @@ import cookieParser from 'cookie-parser'
 import connectToDb from "./lib/db.js";
 import cors from 'cors'
 import messageRoutes from "./routes/message.routes.js";
-
+import {app, server } from "./lib/socket.js"
 
 dotenv.config()
-const app = express()
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: "http://localhost:5173",
@@ -27,7 +27,7 @@ app.get('/health', (req, res)=>{
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=> {
+server.listen(PORT, ()=> {
     console.log(`Server running on ${PORT}`)
     connectToDb()
 }); 
